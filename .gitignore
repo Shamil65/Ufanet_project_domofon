@@ -1,0 +1,75 @@
+# Временные и системные файлы
+*.swp
+*.bak
+*.tmp
+*.pid
+*.DS_Store
+Thumbs.db
+
+# Файлы IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+media/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# MQTT специфичное
+*.cache
+*.conf
+*.pid
+*.db
+
+# Windows
+[Dd]esktop.ini
+[Tt]humbs.db
+*.stackdump
+
+
+# PostgreSQL
+*.pgdump
+*.sql
+
+# MySQL
+*.myd
+*.myi
+*.frm
+
+# Статические файлы (если собираются)
+staticfiles/
+.collectstatic
+
+# Кэш
+.cache/
