@@ -48,10 +48,10 @@ class DomofonCallView(View):
         try:
             topic = "domofon/calls"
             payload = {
-                "mac": call.mac_address,
-                "apt": call.apartment_number,
-                "time": call.call_time.isoformat(),
-                "state": "on" if call.is_active else "off"
+                "mac_address": call.mac_address,
+                "apartment_number": call.apartment_number,
+                "call_time": call.call_time.isoformat(),
+                "is_active": "on" if call.is_active else "off"
             }
             
             self.mqtt_client.publish(topic, json.dumps(payload))

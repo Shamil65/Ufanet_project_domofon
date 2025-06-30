@@ -22,6 +22,6 @@ from client.views import mqtt_monitor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('domofon/', DomofonCallView.as_view(), name='domofon_call'),
+    path('', DomofonCallView.as_view(), name='domofon_call'),
     path('mqtt-monitor/', mqtt_monitor, name='mqtt-monitor'),
 ]

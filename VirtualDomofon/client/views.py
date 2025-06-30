@@ -1,8 +1,14 @@
 # client/views.py
 from django.shortcuts import render
+from .models import DomofonCall
 
 def mqtt_monitor(request):
-    return render(request, 'client/mqtt_monitor.html')
+    
+    macs = DomofonCall.objects.all()
 
-def asdasd():
-    pass
+    data = {
+        'title': f'Вызовы',
+        'mac_address': macs,
+    }
+    return render(request, 'mqtt_monitor.html', data)
+

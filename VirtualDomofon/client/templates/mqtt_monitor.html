@@ -1,0 +1,15 @@
+{{title}}
+{% for i in mac_address reversed%}
+
+<div class="checkbox">
+    
+    <p> Мак адрес: {{ i.mac_address }}</p>
+    <p> Номер квартиры: {{i.apartment_number}}</p>
+    <p> Время вызова: {{i.call_time}}</p>
+    <p> Активен/Неактивен: {{i.is_active}}</p>
+    <br>
+
+</div>
+
+{% endfor %}
+

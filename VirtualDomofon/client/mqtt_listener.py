@@ -5,6 +5,7 @@ import logging
 import time
 import threading
 from django.conf import settings
+from .models import DomofonCall
 
 class MQTTListener:
     def __init__(self):
@@ -66,6 +67,18 @@ class MQTTListener:
     
     def _process_message(self, topic, payload):
         """Обработка и вывод сообщения"""
+        if isinstance(payload, dict):
+            try:
+                govno2 = []
+                for k, v in payload.items():
+                    govno2.append(v)
+                DomofonCall.objects.create(mac_address=govno2[0], apartment_number=int(govno2[1]), is_active=True if govno2[3] == 'on' else False)
+                
+                print("Данные, полученные с помощью MQTT сохранены в БД")
+            except:
+                print("Ошибка при добавлении данных в бд из mqtt запроса")
+
+
         try:
             print("\n" + "="*60)
             print(f"MQTT Message from {topic}:")
