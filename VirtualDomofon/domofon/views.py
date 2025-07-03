@@ -51,7 +51,8 @@ class DomofonCallView(View):
                 "mac_address": call.mac_address,
                 "apartment_number": call.apartment_number,
                 "call_time": call.call_time.isoformat(),
-                "is_active": "on" if call.is_active else "off"
+                "is_active": "on" if call.is_active else "off",
+                "open_closed": "on" if call.open_closed else "off",
             }
             
             self.mqtt_client.publish(topic, json.dumps(payload))

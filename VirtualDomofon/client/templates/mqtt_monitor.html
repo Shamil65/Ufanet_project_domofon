@@ -1,15 +1,112 @@
-{{title}}
-{% for i in mac_address reversed%}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            padding: 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
 
-<div class="checkbox">
-    
-    <p> Мак адрес: {{ i.mac_address }}</p>
-    <p> Номер квартиры: {{i.apartment_number}}</p>
-    <p> Время вызова: {{i.call_time}}</p>
-    <p> Активен/Неактивен: {{i.is_active}}</p>
-    <br>
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
 
-</div>
+        .call-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+            max-width: 480px;
+            margin: 15px auto;
+            padding: 20px 30px;
+            transition: box-shadow 0.3s ease;
+        }
+        .call-card:hover {
+            box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
+        }
 
-{% endfor %}
+        dl {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: 10px 20px;
+            margin-bottom: 20px;
+        }
 
+        dt {
+            font-weight: 600;
+            color: #34495e;
+            user-select: none;
+        }
+
+        dd {
+            margin: 0;
+            color: #555;
+            word-break: break-word;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            background-color: #2980b9;
+            border: none;
+            color: #fff;
+            padding: 10px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.25s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1c5980;
+        }
+
+        p {
+            max-width: 480px;
+            margin: 40px auto;
+            font-size: 1.1rem;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+
+    {% for i in mac_address %}
+    <div class="call-card">
+        <dl>
+            <dt>MAC адрес:</dt><dd>{{ i.mac_address }}</dd>
+            <dt>Номер квартиры:</dt><dd>{{ i.apartment_number }}</dd>
+            <dt>Время вызова:</dt><dd>{{ i.call_time|date:"d.m.Y H:i:s" }}</dd>
+            <dt>Активен:</dt><dd>{{ i.is_active|yesno:"Да,Нет" }}</dd>
+            <dt>Дверь открыта:</dt><dd>{{ i.open_closed|yesno:"Да,Нет" }}</dd>
+        </dl>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="call_id" value="{{ i.id }}" />
+            {% if not i.open_closed %}
+                <input type="submit" value="Открыть дверь" name="open" />
+            {% else %}
+                <input type="submit" value="Закрыть дверь" name="close" />
+            {% endif %}
+        </form>
+    </div>
+    {% empty %}
+    <p>Вызовов нет.</p>
+    {% endfor %}
+</body>
+</html>

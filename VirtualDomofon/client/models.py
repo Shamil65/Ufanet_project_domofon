@@ -6,6 +6,7 @@ class DomofonCall(models.Model):
     apartment_number = models.PositiveIntegerField(verbose_name="Номер квартиры")
     call_time = models.DateTimeField(default=timezone.now, verbose_name="Время звонка")
     is_active = models.BooleanField(default=True, verbose_name="Домофон включен")
+    open_closed = models.BooleanField(default=False, verbose_name="Открытие двери")
 
     def __str__(self):
         return self.mac_address

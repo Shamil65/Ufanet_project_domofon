@@ -72,7 +72,7 @@ class MQTTListener:
                 govno2 = []
                 for k, v in payload.items():
                     govno2.append(v)
-                DomofonCall.objects.create(mac_address=govno2[0], apartment_number=int(govno2[1]), is_active=True if govno2[3] == 'on' else False)
+                DomofonCall.objects.create(mac_address=govno2[0], apartment_number=int(govno2[1]), is_active=True if govno2[3] == 'on' else False, open_closed=True if govno2[4] == 'on' else False)
                 
                 print("Данные, полученные с помощью MQTT сохранены в БД")
             except:
